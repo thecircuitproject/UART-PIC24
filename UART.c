@@ -1,6 +1,6 @@
 /*
  * File:   UART.c
- * Author: jborr
+ * Author: Jose Borrayo
  *
  * Created on February 24, 2021, 4:28 PM
  */
@@ -13,8 +13,6 @@
 #include <string.h>
 #define baudrate 9600
 #define BRGVAL ((FCY/baudrate)/16)-1
-
-//uint8_t data = 'a';
 
 void setUARTpins(){
     TRISFbits.TRISF5 = 1; //Set PORTF5 as input.
@@ -34,12 +32,6 @@ void initializeUART(){
     //the transmit shift register; all transmit operations are completed.
     U3MODEbits.UARTEN = 1; //UARTx is enabled, all UARTx pins are controlled by UARTx as defined by UEN.
     U3STAbits.UTXEN = 1; //Transmit is enabled,UxTX pin is controlled by UARTx (PORTB5).
-}
-
-void outCharBreak(){
-    while(U3STAbits.UTXBF);
-    //U3TXREG = 0x0D;
-    U3TXREG = 0x0A;
 }
 
 void outChar1(char *letter, unsigned int num){
@@ -69,10 +61,7 @@ int main(void) {
     turnLED1();
     int k;
     while(1){
-        outChar1("Temperature: ",13);
-        outChar1("Heart Rate: ",12);
-        outChar1("Pulse Ox: ",10);
-        outCharBreak();
+        outChar1("Hello World",11);
         k = inChar1;
         turnLED1();
     }
